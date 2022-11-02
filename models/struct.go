@@ -18,17 +18,16 @@ type Task struct {
 }
 
 type AddTask struct {
-	Title string `json:"title" binding:"required"`
-	Description string `json:"description" binding:"required"`
-	FileName string `json:"filename" binding:"required"`
-	Status int `json:"status"`
+	Title string `json:"title" form:"title" binding:"required"`
+	Description string `json:"description" form:"description" binding:"required"`
+	FileName string 
 }
 
 type EditTask struct {
-	Title string `json:"title"`
-	Description string `json:"description"`
-	FileName string `json:"filename"`
-	Status int `json:"status"`
+	Title string `json:"title" form:"title"`
+	Description string `json:"description" form:"description"`
+	FileName string
+	Status int `json:"status" form:"status"`
 }
 
 
@@ -43,17 +42,16 @@ type Subtask struct {
 }
 
 type AddSubtask struct {
-	Title string 			`json:"title" binding:"required"`
-	Description string		`json:"description" binding:"required"`
-	Task_ID string			`json:"task_id" binding:"required"`
-	Status int 				`json:"status" binding:"required"`
-}
+	Title string 			`json:"title" form:"title" binding:"required"`
+	Description string		`json:"description" form:"description" binding:"required"`
+	Task_ID string			`json:"task_id" form:"task_id" binding:"required"`
+} 
 
 type EditSubtask struct {
-	Title string 			`json:"title" `
-	Description string		`json:"description" `
-	Task_ID string			`json:"task_id" `
-	Status int 				`json:"status" `
+	Title string 			`json:"title" form:"title"`
+	Description string		`json:"description" form:"description"`
+	Task_ID string			`json:"task_id" form:"task_id"`
+	Status int 				`json:"status" form:"status"`
 }
 
 type ErrorMessage struct {

@@ -28,6 +28,12 @@ type Server struct {
 
 var ServerSetting = &Server{}
 
+type FileHandler struct {
+	Filepath string
+}
+
+var FileHandlerSetting = &FileHandler{}
+
 var cfg *ini.File
 
 func Setup() {
@@ -40,7 +46,7 @@ func Setup() {
 
 	mapTo("server", ServerSetting)
 	mapTo("database", DatabaseSetting)
-	fmt.Println(ServerSetting)
+	mapTo("fileHandler", FileHandlerSetting)
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
 	ServerSetting.WriteTimeout = ServerSetting.WriteTimeout * time.Second
 }
