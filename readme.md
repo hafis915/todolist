@@ -24,7 +24,7 @@ jalankan :
 ```
 go run main.go
 ```
-
+pada folder conf terdapat file app.ini, pada file tersebut ubah configurasi yang ada dengan configurasi yang dibutuhkan
 
 
 ## List API:
