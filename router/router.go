@@ -17,7 +17,7 @@ func TaskRoute(echo *echo.Echo) {
 } 
 
 func SubtaskRoute (echo *echo.Echo) {
-	echo.GET("/subtask", controller.GetSubtasks)
+	echo.GET("/subtasks", controller.GetSubtasks)
 	echo.GET("/subtask/:taskid", controller.GetSubtask)
 	echo.POST("/subtask", controller.CreateSubTask)
 	echo.PUT("/subtask/:id", controller.UpdateSubTask)
