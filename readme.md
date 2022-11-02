@@ -24,7 +24,8 @@ jalankan :
 ```
 go run main.go
 ```
-pada folder conf terdapat file app.ini, pada file tersebut ubah configurasi yang ada dengan configurasi yang dibutuhkan
+pada folder conf terdapat file app.ini, pada file tersebut ubah configurasi yang ada dengan configurasi yang dibutuhkan.
+** Untuk Path upload local , Jika ingin mengikuti config file yang sudah ada. tambahkan directory dengan nama assets pada root file**
 
 
 ## List API:
