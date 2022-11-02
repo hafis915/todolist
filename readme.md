@@ -1,6 +1,4 @@
 
-## Moonlay Academy - Backend Test (GOLANG)
-
 >**Todo List App**
 Aplikasi yang umumnya digunakan untuk memelihara tugas sehari-hari atau membuat daftar semua yang harus dilakukan, dengan urutan prioritas tugas tertinggi hingga terendah. Sangat membantu dalam merencanakan jadwal harian.
 
