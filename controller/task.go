@@ -110,17 +110,46 @@ func UpdateTask(e echo.Context) error{
 	var err error
 	var updateTask models.EditTask
 	var task *models.Task
+	var dst *os.File
 	id := e.Param("id")
+
+
+	file,err := e.FormFile("file")
+
+	if err == nil {
+		src, err := file.Open()
+		if err!= nil {
+			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
+		}
+
+		defer src.Close()
+		dst, err = os.Create(fmt.Sprintf("%s/%s", setting.FileHandlerSetting.Filepath, file.Filename))
+
+		if err != nil {
+			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
+		}
+
+		defer dst.Close()
+		if _, err = io.Copy(dst,src) ; err != nil {
+			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
+
+		}
+
+		updateTask.FileName = file.Filename
+	}else if err.Error() == "http: no such file"{
+
+	}else {
+		return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
+	}
+
 	if err = e.Bind(&updateTask) ; err != nil {
 		return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
-		
 	}
 
 	if task,err = models.UpdateTask(id, updateTask) ;err != nil {
 		return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
 		
 	}
-
 	return e.JSON(http.StatusOK, task)
 
 }
