@@ -4,6 +4,31 @@
 >**Todo List App**
 Aplikasi yang umumnya digunakan untuk memelihara tugas sehari-hari atau membuat daftar semua yang harus dilakukan, dengan urutan prioritas tugas tertinggi hingga terendah. Sangat membantu dalam merencanakan jadwal harian.
 
+> Pada applikasi ini terdiri dari 2 table, yaitu task dan subtask, dimana subtask merupakan bagian dari task. Kita bisa menambahkan task dan subtask.
+
+## Requirement
+Sebelum Menjelakan aplikasi pastikan telah  memiliki aplikasi berikut di local anda : 
+### Teknologi dan library yang wajib digunakan:
+| Teknologi   | Version | Link |
+| ----------- | ---------------- | ------------------- |
+| Golang      | v1.18 or later   | [Go Download](https://go.dev/dl)  |
+| Go Echo Framework     | v4     | [Echo Installation](https://echo.labstack.com/guide/#installation) | 
+| GORM | v2 | [GORM Installation](https://gorm.io/docs/#Install) |
+| PostgreSQL | v13 or later | [PostgreSQL Download](https://www.postgresql.org/download/) |
+## Cara Menjalankan: 
+clone repository : 
+```
+git clone https://github.com/hafis915/todolist.git
+```
+jalankan :
+```
+go run main.go
+```
+
+
+
+## List API:
+
 Buat API Todo List dengan kriteria sebagai berikut :
 1. Menampilkan data list tanpa sub list ( dengan dan tanpa pagination ).
 ```
@@ -75,6 +100,7 @@ Method : PUT
 |file|file|false
 
 7. Menghapus data list/sub list.
+
 **task**
 ```
 route : http://localhost:8000/task/:id
