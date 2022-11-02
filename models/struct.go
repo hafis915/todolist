@@ -37,6 +37,7 @@ type Subtask struct {
 	Description string 		`gorm:"column:description" json:"description"`
 	Task_ID		string		`gorm:"column:task_id" json:"task_id"`
 	Status 		int			`gorm:"column:status" json:"status"`
+	FileName	string    	`gorm:"column:fileName" json:"filename"`
 	CreatedAt time.Time		`gorm:"column:created_at" json:"-"`
 	UpdatedAt time.Time  	`gorm:"column:updated_at" json:"-"`
 }
@@ -45,6 +46,7 @@ type AddSubtask struct {
 	Title string 			`json:"title" form:"title" binding:"required"`
 	Description string		`json:"description" form:"description" binding:"required"`
 	Task_ID string			`json:"task_id" form:"task_id" binding:"required"`
+	FileName string
 } 
 
 type EditSubtask struct {
@@ -52,6 +54,7 @@ type EditSubtask struct {
 	Description string		`json:"description" form:"description"`
 	Task_ID string			`json:"task_id" form:"task_id"`
 	Status int 				`json:"status" form:"status"`
+	FileName string
 }
 
 type ErrorMessage struct {

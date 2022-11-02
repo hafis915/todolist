@@ -88,7 +88,6 @@ func CreateTask(e echo.Context) error {
 	}else if err.Error() == "http: no such file" {
 		//  JIKA TIDAK KIRIM FILE
 	}else {
-		fmt.Println(err.Error() == "http: no such file")
 		return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
 	}
 
