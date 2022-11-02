@@ -51,6 +51,7 @@ func UpdateSubtask(id string, updatedData EditSubtask) (*Subtask, error) {
 		Description :updatedData.Description,
 		Task_ID: updatedData.Task_ID,
 		Status: updatedData.Status,
+		FileName: updatedData.FileName,
 		UpdatedAt: time.Now(),
 	}
 	if err = db.Model(&Subtask{}).Where("id=?", id).Updates(newVal).Error; err != nil {

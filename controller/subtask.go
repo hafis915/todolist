@@ -1,12 +1,9 @@
 package controller
 
 import (
-	"fmt"
-	"io"
 	"net/http"
-	"os"
 	"todoList/models"
-	"todoList/pkg/setting"
+	"todoList/utility"
 
 	"github.com/labstack/echo/v4"
 )
@@ -34,28 +31,16 @@ func GetSubtask(e echo.Context) error {
 func CreateSubTask(e echo.Context) error {
 	var err error
 	var newSubtask models.AddSubtask
-	var dst *os.File
 
 	file, err := e.FormFile("file")
 	
 	if err == nil {
-		src, err := file.Open()
+		filename, err := utility.UploadFile(file)
 		if err != nil {
-			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
-		}
-		defer src.Close()
-
-		dst, err = os.Create(fmt.Sprintf("%s/%s", setting.FileHandlerSetting.Filepath, file.Filename))
-		if err != nil {
-			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
-		}
-
-		defer dst.Close()
-		if _, err = io.Copy(dst, src); err != nil {
 			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
-		}
 
-		newSubtask.FileName = file.Filename
+		}
+		newSubtask.FileName = *filename
 
 	}else if err.Error() == "http: no such file" {
 
@@ -81,6 +66,22 @@ func UpdateSubTask(e echo.Context) error{
 	var updateSubtask models.EditSubtask
 	var subtask *models.Subtask
 	id := e.Param("id")
+
+	file, err := e.FormFile("file")
+
+	if err == nil {
+		filename, err := utility.UploadFile(file)
+		if err != nil {
+			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
+		}
+		updateSubtask.FileName = *filename
+	}else if err.Error() == "http: no such file" {
+
+	}else {
+		return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
+
+	}
+
 	if err = e.Bind(&updateSubtask) ; err != nil {
 		return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
 		

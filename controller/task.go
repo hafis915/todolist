@@ -1,13 +1,10 @@
 package controller
 
 import (
-	"fmt"
-	"io"
 	"net/http"
-	"os"
 	"strconv"
 	"todoList/models"
-	"todoList/pkg/setting"
+	"todoList/utility"
 
 	"github.com/labstack/echo/v4"
 )
@@ -65,25 +62,15 @@ func GetTask(e echo.Context) error {
 func CreateTask(e echo.Context) error {
 	var err error
 	var newTask models.AddTask
-	var dst *os.File
 
 	file ,err := e.FormFile("file") ; 
 	if err == nil {
-		src, err := file.Open()
-		defer src.Close()
-	
-		// Destination
-		dst, err = os.Create(fmt.Sprintf("%s/%s", setting.FileHandlerSetting.Filepath, file.Filename))
+		filename, err := utility.UploadFile(file)
 		if err != nil {
 			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
-	
+			
 		}
-		defer dst.Close()
-	
-		if _, err = io.Copy(dst, src); err != nil {
-			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
-		}
-		newTask.FileName = file.Filename
+		newTask.FileName = *filename
 
 	}else if err.Error() == "http: no such file" {
 		//  JIKA TIDAK KIRIM FILE
@@ -110,32 +97,17 @@ func UpdateTask(e echo.Context) error{
 	var err error
 	var updateTask models.EditTask
 	var task *models.Task
-	var dst *os.File
 	id := e.Param("id")
-
 
 	file,err := e.FormFile("file")
 
 	if err == nil {
-		src, err := file.Open()
-		if err!= nil {
-			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
-		}
-
-		defer src.Close()
-		dst, err = os.Create(fmt.Sprintf("%s/%s", setting.FileHandlerSetting.Filepath, file.Filename))
-
+		filename, err := utility.UploadFile(file)
 		if err != nil {
-			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
+			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()})
 		}
 
-		defer dst.Close()
-		if _, err = io.Copy(dst,src) ; err != nil {
-			return e.JSON(http.StatusBadRequest, models.ErrorMessage{Message: err.Error()}) 
-
-		}
-
-		updateTask.FileName = file.Filename
+		updateTask.FileName = *filename
 	}else if err.Error() == "http: no such file"{
 
 	}else {
