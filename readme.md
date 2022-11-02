@@ -53,7 +53,7 @@ method : POST
 untuk field file digunakan saat melakukan hit dengan FormData.
 ```
 **Body :**
-|field| data type | isrequired|
+|field| data type | isRequired|
 |-----|-----------|-----------|
 |title|string|true
 |description|string|true|
@@ -65,7 +65,7 @@ route : http://localhost:8000/subtask
 method : POST
 ```
 **Body :**
-|field| data type | isrequired|
+|field| data type | isRequired|
 |-----|-----------|-----------|
 |title|string|true
 |description|string|true|
@@ -81,11 +81,12 @@ route mengubah data task : http://localhost:8000/subtask/:id
 Method : PUT
 ```
 Body :
-|field| data type | isrequired|
+|field| data type | isRequired|
 |-----|-----------|-----------|
-|title|string|true
-|description|string|true|
-|task_id|string|true|
+|title|string|false
+|description|string|false|
+|task_id|string|false|
+|status|integer|false|
 |file|file|false
 
 **Task**
@@ -93,10 +94,11 @@ Body :
 route mengubah data task : http://localhost:8000/task/:id
 Method : PUT
 ```
-|field| data type | isrequired|
+|field| data type | isRequired|
 |-----|-----------|-----------|
-|title|string|true
-|description|string|true|
+|title|string|false
+|description|string|false|
+|status|integer|false|
 |file|file|false
 
 7. Menghapus data list/sub list.
